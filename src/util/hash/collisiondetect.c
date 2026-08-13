@@ -7,6 +7,13 @@
 
 #include "collisiondetect.h"
 
+/*
+ * Patched for Hemlock (github.com/yhahn/libgit2): matches the guard added
+ * to collisiondetect.h, so this file is a safe no-op (no duplicate symbols)
+ * when this backend isn't selected.
+ */
+#ifdef GIT_SHA1_COLLISIONDETECT
+
 int git_hash_sha1_global_init(void)
 {
 	return 0;
@@ -46,3 +53,5 @@ int git_hash_sha1_final(unsigned char *out, git_hash_sha1_ctx *ctx)
 
 	return 0;
 }
+
+#endif

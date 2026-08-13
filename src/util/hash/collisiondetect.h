@@ -10,10 +10,20 @@
 
 #include "hash/sha.h"
 
+/*
+ * Patched for Hemlock (github.com/yhahn/libgit2): guarded so this file is a
+ * safe no-op when GIT_SHA1_COLLISIONDETECT isn't defined (e.g. building for
+ * Darwin, which uses common_crypto.h instead) rather than colliding with
+ * that backend's own struct git_hash_sha1_ctx definition.
+ */
+#ifdef GIT_SHA1_COLLISIONDETECT
+
 #include "sha1dc/sha1.h"
 
 struct git_hash_sha1_ctx {
 	SHA1_CTX c;
 };
+
+#endif
 
 #endif

@@ -7,6 +7,13 @@
 
 #include "builtin.h"
 
+/*
+ * Patched for Hemlock (github.com/yhahn/libgit2): matches the guard added
+ * to builtin.h, so this file is a safe no-op (no duplicate symbols) when
+ * this backend isn't selected.
+ */
+#ifdef GIT_SHA256_BUILTIN
+
 int git_hash_sha256_global_init(void)
 {
 	return 0;
@@ -61,3 +68,5 @@ int git_hash_sha256_final(unsigned char *out, git_hash_sha256_ctx *ctx)
 	}
 	return 0;
 }
+
+#endif
